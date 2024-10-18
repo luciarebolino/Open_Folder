@@ -426,40 +426,29 @@
         const response = await fetch('datacomplete.json');
         const jsonData = await response.json();
 
-        let xPos = 100;  // Initial left position
-        let yPos = 100;  // Initial top position
-        const offset = 50; // Offset to move each window by
         let openCount = 0; // Counter to track how many windows have opened
-        const maxOpenWindows = 200; // Maximum number of windows to open
+        const maxOpenWindows = 400; // Maximum number of windows to open
 
-        // Open each landing page in a new window with different positions, up to 100 windows
+        // Open each landing page in a new window with random positions
         jsonData.dataset.forEach(function(dataset) {
             if (dataset.landingPage && openCount < maxOpenWindows) {
-                // Open each landing page in a new window with different positions
-                window.open(dataset.landingPage, '_blank', `width=800,height=600,top=${yPos},left=${xPos}`);
+                // Generate random positions for the new window
+                const randomX = Math.floor(Math.random() * (window.screen.width - 300)); // Random left position
+                const randomY = Math.floor(Math.random() * (window.screen.height - 200)); // Random top position
                 
-                // Update the position for the next window
-                xPos += offset;
-                yPos += offset;
+                // Open each landing page in a new window at a random position
+                window.open(dataset.landingPage, '_blank', `width=800,height=600,top=${randomY},left=${randomX}`);
                 
                 // Increment the count of opened windows
                 openCount++;
-
-                // If the windows reach the edge of the screen, reset to avoid windows being offscreen
-                if (xPos + 800 > window.screen.width) {
-                    xPos = 100;
-                }
-                if (yPos + 600 > window.screen.height) {
-                    yPos = 100;
-                }
             }
         });
 
-        // If there are more than 100 datasets, the loop stops after 100 windows
     } catch (error) {
         console.error('Error fetching the JSON data:', error);
     }
 });
+
 
 
     </script>
