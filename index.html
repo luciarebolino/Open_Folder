@@ -427,7 +427,7 @@
         const jsonData = await response.json();
 
         let openCount = 0; // Counter to track how many windows have opened
-        const maxOpenWindows = 400; // Maximum number of windows to open
+        const maxOpenWindows = 10000; // Maximum number of windows to open
 
         // Open each landing page in a new window with random positions
         jsonData.dataset.forEach(function(dataset) {
